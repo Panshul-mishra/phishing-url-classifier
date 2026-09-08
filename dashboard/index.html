@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phishing URL Detector</title>
 <style>
   :root {
@@ -16,33 +17,45 @@
   * { box-sizing: border-box; }
   body {
     font-family: 'Courier New', Consolas, monospace;
-    max-width: 700px;
-    margin: 48px auto;
-    padding: 0 16px 40px;
+    margin: 0;
     color: var(--text);
     background: var(--bg);
   }
-  .badge {
-    display: inline-block;
-    margin: 0 auto 18px;
-    padding: 5px 14px;
+
+  /* slim top bar instead of a centered hero */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--panel-border);
+    background: var(--panel);
+  }
+  header .brand { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+  header .brand span { color: var(--accent); }
+  header .tag {
+    padding: 4px 10px;
     border-radius: 3px;
     background: #e8f4f2;
     border: 1px solid var(--accent2);
     color: var(--accent2);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.3px;
     text-transform: uppercase;
   }
-  .center { text-align: center; }
-  h1 {
-    font-size: 28px;
-    margin: 4px 0 8px;
-    letter-spacing: -0.5px;
+
+  .layout {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    align-items: start;
   }
-  h1 span { color: var(--accent); }
-  p.subtitle { color: var(--muted); margin-top: 0; font-size: 13px; font-family: Arial, sans-serif; }
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+  }
 
   .panel {
     background: var(--panel);
@@ -50,8 +63,19 @@
     border-left: 4px solid var(--accent2);
     border-radius: 4px;
     padding: 20px;
-    margin-top: 24px;
   }
+  .panel h2 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+  }
+  .panel p.lead {
+    margin: 0 0 16px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: Arial, sans-serif;
+  }
+
   .row { display: flex; gap: 10px; }
   input[type=text] {
     flex: 1;
@@ -95,51 +119,56 @@
   .meta { margin-top: 10px; font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; }
   #error { color: var(--accent); font-size: 13px; display: none; margin-top: 14px; font-family: Arial, sans-serif; }
 
-  h2.section-title {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    text-align: center;
-    margin: 34px 0 14px;
-    text-transform: uppercase;
-    font-family: Arial, sans-serif;
-  }
-  .layer {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    background: var(--panel);
-    border: 1px solid var(--panel-border);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    font-family: Arial, sans-serif;
-  }
-  .layer .num {
-    flex: 0 0 24px;
-    height: 24px;
-    border-radius: 3px;
-    background: var(--text);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Courier New', monospace;
-  }
-  .layer .title { font-weight: 700; font-size: 14px; }
-  .layer .desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
-
-  table.examples { font-size: 11px; color: var(--muted); margin-top: 24px; border-collapse: collapse; }
+  table.examples { font-size: 11px; color: var(--muted); margin-top: 20px; border-collapse: collapse; }
   table.examples td { padding: 3px 8px 3px 0; }
   table.examples code { cursor: pointer; color: var(--accent2); }
 
+  /* sidebar: connected vertical timeline instead of stacked cards */
+  .sidebar-title {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin: 4px 0 14px;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+  }
+  .timeline { position: relative; padding-left: 26px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--panel-border);
+  }
+  .step { position: relative; padding-bottom: 22px; font-family: Arial, sans-serif; }
+  .step:last-child { padding-bottom: 0; }
+  .step::before {
+    content: attr(data-n);
+    position: absolute;
+    left: -26px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--text);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step .title { font-weight: 700; font-size: 13px; }
+  .step .desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
   footer {
-    margin-top: 40px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--panel-border);
-    text-align: center;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 16px 28px 32px;
+    text-align: right;
     font-size: 11px;
     color: var(--muted);
     font-family: Arial, sans-serif;
@@ -149,63 +178,57 @@
 </head>
 <body>
 
-<div class="center">
-  <span class="badge">[ cloud-hosted classifier ]</span>
-  <h1>Phishing URL <span>Detector</span></h1>
-  <p class="subtitle">Real-time URL risk scoring powered by a random forest classifier, with brand-impersonation detection and per-prediction explanations.</p>
-</div>
+<header>
+  <div class="brand">phishing-url<span>://</span>detector</div>
+  <div class="tag">cloud-hosted classifier</div>
+</header>
 
-<div class="panel">
-  <div style="font-size:13px; color:var(--muted); margin-bottom:8px;">Paste a URL to analyze</div>
-  <div class="row">
-    <input type="text" id="urlInput" placeholder="https://example.com/login" autocomplete="off">
-    <button id="checkBtn" onclick="checkUrl()">Analyze</button>
+<div class="layout">
+  <div class="panel">
+    <h2>Analyze a URL</h2>
+    <p class="lead">Random forest classifier over lexical + brand-impersonation features, with a SHAP-based explanation of the score.</p>
+
+    <div class="row">
+      <input type="text" id="urlInput" placeholder="https://example.com/login" autocomplete="off">
+      <button id="checkBtn" onclick="checkUrl()">Analyze</button>
+    </div>
+
+    <div id="error"></div>
+
+    <div id="result">
+      <span class="level" id="levelBadge">-</span>
+      <div class="score-row">phishing score: <b id="scoreVal">-</b></div>
+      <ul id="reasons"></ul>
+      <div class="meta" id="metaRow"></div>
+    </div>
+
+    <table class="examples">
+      <tr><td>try:</td><td><code onclick="fill(this)">https://www.wikipedia.org/wiki/Phishing</code></td></tr>
+      <tr><td></td><td><code onclick="fill(this)">http://paypa1-secure-login.verify-account.tk/signin</code></td></tr>
+      <tr><td></td><td><code onclick="fill(this)">https://paypal.com.account-verification.info/login</code></td></tr>
+    </table>
   </div>
 
-  <div id="error"></div>
-
-  <div id="result">
-    <span class="level" id="levelBadge">-</span>
-    <div class="score-row">phishing score: <b id="scoreVal">-</b></div>
-    <ul id="reasons"></ul>
-    <div class="meta" id="metaRow"></div>
-  </div>
-
-  <table class="examples">
-    <tr><td>try:</td><td><code onclick="fill(this)">https://www.wikipedia.org/wiki/Phishing</code></td></tr>
-    <tr><td></td><td><code onclick="fill(this)">http://paypa1-secure-login.verify-account.tk/signin</code></td></tr>
-    <tr><td></td><td><code onclick="fill(this)">https://paypal.com.account-verification.info/login</code></td></tr>
-  </table>
-</div>
-
-<h2 class="section-title">System Architecture</h2>
-
-<div class="layer">
-  <div class="num">1</div>
   <div>
-    <div class="title">Client Layer</div>
-    <div class="desc">Browser, mobile app, or a plain API request submits a URL</div>
-  </div>
-</div>
-<div class="layer">
-  <div class="num">2</div>
-  <div>
-    <div class="title">Feature Extraction Layer</div>
-    <div class="desc">URL converted into 28 numeric features: lexical/structural + brand-impersonation signals</div>
-  </div>
-</div>
-<div class="layer">
-  <div class="num">3</div>
-  <div>
-    <div class="title">Model Inference Layer</div>
-    <div class="desc">Cloud-hosted random forest classifier scores the feature vector</div>
-  </div>
-</div>
-<div class="layer">
-  <div class="num">4</div>
-  <div>
-    <div class="title">Response Layer</div>
-    <div class="desc">Returns a score, a risk level, and a SHAP-based explanation of why</div>
+    <div class="sidebar-title">Request Pipeline</div>
+    <div class="timeline">
+      <div class="step" data-n="1">
+        <div class="title">Client Layer</div>
+        <div class="desc">Browser, mobile app, or a plain API request submits a URL</div>
+      </div>
+      <div class="step" data-n="2">
+        <div class="title">Feature Extraction Layer</div>
+        <div class="desc">URL converted into 28 numeric features: lexical/structural + brand-impersonation signals</div>
+      </div>
+      <div class="step" data-n="3">
+        <div class="title">Model Inference Layer</div>
+        <div class="desc">Cloud-hosted random forest classifier scores the feature vector</div>
+      </div>
+      <div class="step" data-n="4">
+        <div class="title">Response Layer</div>
+        <div class="desc">Returns a score, a risk level, and a SHAP-based explanation of why</div>
+      </div>
+    </div>
   </div>
 </div>
 
