@@ -67,13 +67,13 @@ Result (see `model/artifacts/hard_set_comparison.json`): both models catch the o
 
 ## Deployment
 
-Deployed as a Docker container to **Hugging Face Spaces** (free tier, no credit card, public URL) rather than AWS/GCP, since this is a class project with no budget:
+Deployed as a Docker container to **Render** (free tier, no credit card) rather than AWS/GCP, since this is a class project with no budget. Live at:
 
-1. Create a new Space, SDK = Docker.
-2. Push this repo to the Space's git remote.
-3. HF builds the `Dockerfile` and serves the app on port 7860 automatically.
+**https://phishing-url-classifier-7fm7.onrender.com**
 
-The API also runs locally the same way via `uvicorn` (see Setup), and the same Docker image runs on any container host if a real cloud deploy is ever needed for this.
+Steps: push this repo to GitHub, create a Render Web Service pointed at the repo, Render detects the `Dockerfile` and builds/deploys automatically. The free tier spins down after 15 minutes idle (~1 minute cold start on the next request) - if demoing live, open the link a minute before you need it.
+
+The API also runs locally the same way via `uvicorn` (see Setup), and the same Docker image runs on any container host if a different cloud deploy is ever needed.
 
 ## API
 
@@ -97,4 +97,4 @@ POST /api/v1/check
 
 ## Browser extension
 
-`browser_extension/` is a Manifest V3 extension - load it unpacked via `chrome://extensions` (Developer mode -> Load unpacked). It reads the active tab's URL and calls the same `/api/v1/check` endpoint. Update `API_BASE` in `popup.js` once deployed to Hugging Face Spaces.
+`browser_extension/` is a Manifest V3 extension - load it unpacked via `chrome://extensions` (Developer mode -> Load unpacked). It reads the active tab's URL and calls the deployed `/api/v1/check` endpoint on Render.

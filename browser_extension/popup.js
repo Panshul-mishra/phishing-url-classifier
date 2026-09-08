@@ -1,7 +1,4 @@
-// change this once the API is deployed (see the Dockerfile / README for
-// the Hugging Face Spaces deploy steps) - localhost only works while
-// running the API on your own machine for testing
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://phishing-url-classifier-7fm7.onrender.com";
 
 const LEVEL_COLORS = {
   "Safe": "#22c55e",
