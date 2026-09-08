@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Phishing URL Detector",
+  "version": "1.0",
+  "description": "Checks the current tab's URL against a cloud-hosted phishing classifier.",
+  "permissions": ["activeTab", "tabs"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

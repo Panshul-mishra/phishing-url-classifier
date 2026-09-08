@@ -1,0 +1,49 @@
+{
+  "accuracy": 0.9904166666666666,
+  "precision": 0.9946209446965877,
+  "recall": 0.9861666666666666,
+  "f1": 0.9903757636622311,
+  "roc_auc": 0.9983847916666666,
+  "confusion_matrix": [
+    [
+      5968,
+      32
+    ],
+    [
+      83,
+      5917
+    ]
+  ],
+  "n_train": 48000,
+  "n_test": 12000,
+  "feature_importances": {
+    "is_https": 0.37935976078931005,
+    "path_length": 0.08779684698175187,
+    "num_slashes": 0.064641125155668,
+    "num_digits": 0.057866572822436006,
+    "domain_entropy": 0.05492470129724905,
+    "num_subdomains": 0.054834891152748144,
+    "domain_length": 0.04478761459908879,
+    "url_length": 0.033997508735502106,
+    "num_tokens": 0.03369636318300218,
+    "digit_ratio": 0.0330330953478464,
+    "num_special_chars": 0.02876923733465091,
+    "num_dots": 0.02525912214979956,
+    "min_brand_edit_distance": 0.021171325447799896,
+    "longest_token_length": 0.019858066294758916,
+    "letter_ratio": 0.01712776704758368,
+    "num_hyphens": 0.01452372872354503,
+    "suspicious_tld": 0.014327925282392788,
+    "brand_lookalike_flag": 0.005236584848194342,
+    "num_query_params": 0.004471605945692992,
+    "num_at_symbols": 0.0021646517069336966,
+    "num_underscores": 0.0010159689139474075,
+    "brand_in_path_not_domain": 0.0007057778888550354,
+    "brand_as_decoy_subdomain": 0.00027363036490660897,
+    "brand_padded_with_brand_token": 0.00010606794681330303,
+    "is_shortener": 4.2883901136429436e-05,
+    "has_ip_host": 7.176138386801406e-06,
+    "has_port": 0.0,
+    "brand_homoglyph_exact_match": 0.0
+  }
+}

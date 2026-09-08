@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    width: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 14px;
+    background: #0b0f19;
+    color: #e7e9ee;
+  }
+  h1 { font-size: 14px; margin: 0 0 10px; }
+  #url { font-size: 11px; color: #8a91a3; word-break: break-all; margin-bottom: 12px; }
+  .level {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .score { margin-top: 8px; font-size: 13px; color: #c3c8d4; }
+  ul { margin: 10px 0 0; padding-left: 18px; font-size: 12px; color: #c3c8d4; }
+  li { margin-bottom: 4px; }
+  #status { font-size: 12px; color: #8a91a3; }
+</style>
+</head>
+<body>
+  <h1>Phishing URL Detector</h1>
+  <div id="url">loading current tab...</div>
+  <div id="status">checking...</div>
+  <div id="body" style="display:none;">
+    <span class="level" id="level">-</span>
+    <div class="score">phishing score: <b id="score">-</b></div>
+    <ul id="reasons"></ul>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

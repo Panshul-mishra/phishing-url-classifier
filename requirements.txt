@@ -1,0 +1,9 @@
+scikit-learn==1.9.0
+pandas==3.0.5
+shap==0.52.0
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+joblib==1.5.3
+python-Levenshtein==0.27.4
+pydantic==2.13.4
+python-multipart==0.0.20

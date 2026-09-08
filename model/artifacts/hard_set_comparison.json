@@ -1,0 +1,21 @@
+{
+  "hard_set_size": 53,
+  "lexical_only": {
+    "accuracy": 0.9056603773584906,
+    "phishing_recall": 0.8928571428571429
+  },
+  "lexical_plus_brand": {
+    "accuracy": 0.8867924528301887,
+    "phishing_recall": 0.8928571428571429
+  },
+  "missed_by_lexical_only": [
+    "https://www.paypalsecurity.com/login",
+    "https://www.amazonshopdeals.com/track",
+    "https://www.appleidsupport.com/verify"
+  ],
+  "missed_by_full_model": [
+    "https://www.paypalsecurity.com/login",
+    "https://www.amazonshopdeals.com/track",
+    "https://www.appleidsupport.com/verify"
+  ]
+}
